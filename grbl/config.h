@@ -72,10 +72,10 @@
 // on separate pin, but homed in one cycle. Also, it should be noted that the function of hard limits 
 // will not be affected by pin sharing.
 // NOTE: Defaults are set for a traditional 3-axis CNC machine. Z-axis first to clear, followed by X & Y.
-#define HOMING_CYCLE_0 (1<<Z_AXIS)                // REQUIRED: First move Z to clear workspace.
-#define HOMING_CYCLE_1 ((1<<X_AXIS)|(1<<Y_AXIS))  // OPTIONAL: Then move X,Y at the same time.
+#define HOMING_CYCLE_0 (1<<X_AXIS)                // REQUIRED: First move Z to clear workspace.
+//#define HOMING_CYCLE_1 ((1<<X_AXIS)|(1<<Y_AXIS))  // OPTIONAL: Then move X,Y at the same time.
 // #define HOMING_CYCLE_2                         // OPTIONAL: Uncomment and add axes mask to enable
-
+#define SOFT_LIMIT_AXES (1<<X_AXIS)
 // Number of homing cycles performed after when the machine initially jogs to limit switches.
 // This help in preventing overshoot and should improve repeatability. This value should be one or 
 // greater.
@@ -238,13 +238,13 @@
 // Sets which axis the tool length offset is applied. Assumes the spindle is always parallel with 
 // the selected axis with the tool oriented toward the negative direction. In other words, a positive
 // tool length offset value is subtracted from the current location.
-#define TOOL_LENGTH_OFFSET_AXIS Z_AXIS // Default z-axis. Valid values are X_AXIS, Y_AXIS, or Z_AXIS.
+#define TOOL_LENGTH_OFFSET_AXIS X_AXIS // Default z-axis. Valid values are X_AXIS, Y_AXIS, or Z_AXIS.
 
 // Enables variable spindle output voltage for different RPM values. On the Arduino Uno, the spindle
 // enable pin will output 5V for maximum RPM with 256 intermediate levels and 0V when disabled.
 // NOTE: IMPORTANT for Arduino Unos! When enabled, the Z-limit pin D11 and spindle enable pin D12 switch!
 // The hardware PWM output on pin D11 is required for variable spindle output voltages.
-#define VARIABLE_SPINDLE // Default enabled. Comment to disable.
+//#define VARIABLE_SPINDLE // Default enabled. Comment to disable.
 
 // Used by the variable spindle output only. These parameters set the maximum and minimum spindle speed
 // "S" g-code values to correspond to the maximum and minimum pin voltages. There are 256 discrete and 
@@ -299,7 +299,7 @@
 // bogged down by too many trig calculations. 
 #define N_ARC_CORRECTION 12 // Integer (1-255)
 
-// The arc G2/3 g-code standard is problematic by definition. Radius-based arcs have horrible numerical 
+//  The arc G2/3 g-code standard is problematic by definition. Radius-based arcs have horrible numerical 
 // errors when arc at semi-circles(pi) or full-circles(2*pi). Offset-based arcs are much more accurate 
 // but still have a problem when arcs are full-circles (2*pi). This define accounts for the floating 
 // point issues when offset-based arcs are commanded as full circles, but get interpreted as extremely
